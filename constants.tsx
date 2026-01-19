@@ -24,41 +24,26 @@ export const MOCK_POSTS: Post[] = [
     id: 'p1',
     title: '【分享】紅白錦鯉的質地判斷標準與經驗談',
     author: MOCK_USERS.senior,
-    category: 'varieties',
+    category: 'management',
     tag: PostTag.EXPERIENCE_SHARE,
-    content: '紅白最重要的是白地的清澈度與緋盤的邊界。今天要來聊聊如何觀察兩歲魚的潛力...',
-    timestamp: '2024-05-20 10:30',
-    views: 1240,
-    images: ['https://picsum.photos/seed/koi1/800/600'],
-    comments: [
-      {
-        id: 'c1',
-        author: MOCK_USERS.producer,
-        content: '非常專業的見解，補充一點：水溫對紅白的紅質影響也很大。',
-        timestamp: '2024-05-20 11:00',
-        likes: 12,
-        replies: [
-          {
-            id: 'c2',
-            author: MOCK_USERS.beginner,
-            content: '請問水溫應該控制在多少比較理想？',
-            timestamp: '2024-05-20 11:15',
-            likes: 2
-          }
-        ]
-      }
-    ]
+    content: '春季氣溫回暖，是細菌最容易滋生的季節。建議各位魚友注意以下幾點：1. 逐步增加餵食量 2. 定期檢測氨氮數值 3. 過濾槽的大清洗...',
+    timestamp: '2024/03/10',
+    views: 452,
+    comments: [],
+    likes: 24
   },
   {
-    id: 'p2',
-    title: '2024 全日本錦鯉品評會：賽況預測與熱門魚隻',
-    author: MOCK_USERS.admin,
-    category: 'competition',
+    id: '3',
+    title: '第55屆全日本錦鯉品評會參賽心得',
+    author: MOCK_USERS.admin, // Assuming 'expert' is 'admin' for now based on MOCK_USERS
+    category: 'competition', // Changed from 'news' to 'competition' to match existing categories
     tag: PostTag.COMPETITION_DISCUSS,
-    content: '今年大型紅白組競爭非常激烈，目前看來...',
-    timestamp: '2024-05-19 15:45',
-    views: 850,
-    comments: []
+    content: '這次有幸參加全日本品評會，見識到了許多頂級的紅白。特別是冠軍魚的體型，真的是教科書級別的...',
+    images: ['https://images.unsplash.com/photo-1544551763-77ef2d0cfc6c?auto=format&fit=crop&q=80&w=1000'],
+    timestamp: '2024/02/28',
+    views: 890,
+    comments: [],
+    likes: 156
   }
 ];
 

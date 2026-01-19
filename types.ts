@@ -41,6 +41,9 @@ export interface Post {
   timestamp: string;
   views: number;
   comments: Comment[];
+  likes: number;
+  isLiked?: boolean;
+  isBookmarked?: boolean;
 }
 
 export interface Category {
