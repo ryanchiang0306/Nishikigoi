@@ -15,6 +15,7 @@ import { PostService } from './services/dataService';
 import AuthContext, { AuthProvider, useAuth } from './contexts/AuthContext';
 import AuthModal from './components/AuthModal';
 
+
 const AppContent: React.FC = () => {
   const { user, openAuthModal, isAuthModalOpen, closeAuthModal, signOut } = useAuth(); // Added signOut
   const [activeCategory, setActiveCategory] = useState<string>('all');
