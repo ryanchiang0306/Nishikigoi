@@ -1,0 +1,7 @@
+{
+  "name": "Nishikigoi Heritage - Professional Forum",
+  "description": "A refined, professional community platform for Nishikigoi enthusiasts featuring AI grading simulations and competition hubs.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
