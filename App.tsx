@@ -10,6 +10,8 @@ import AIGrading from './components/AIGrading';
 import CompetitionHub from './components/CompetitionHub';
 import PostForm from './components/PostForm';
 
+import { PostService } from './services/dataService';
+
 const App: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState<string>('all');
   const [selectedPost, setSelectedPost] = useState<Post | null>(null);
@@ -19,27 +21,55 @@ const App: React.FC = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
-  // Local state for posts to allow "adding" new ones in session
-  const [posts, setPosts] = useState<Post[]>(MOCK_POSTS);
+  // Real data state
+  const [posts, setPosts] = useState<Post[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Fetch posts on load
+  useEffect(() => {
+    loadPosts();
+  }, []);
+
+  const loadPosts = async () => {
+    setIsLoading(true);
+    const data = await PostService.getPosts();
+    // Use fallback mock data ONLY if DB is empty or fails (optional, good for demo)
+    if (data.length === 0) {
+      // Fallback for initial demo experience if user hasn't set up DB yet
+      setPosts(MOCK_POSTS);
+    } else {
+      setPosts(data);
+    }
+    setIsLoading(false);
+  };
 
   const filteredPosts = posts.filter(post => {
     const matchesCategory = activeCategory === 'all' || post.category === activeCategory;
-    const matchesSearch = post.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                          post.content.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesSearch = post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      post.content.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesCategory && matchesSearch;
   });
 
-  const handleCreatePost = (newPost: Post) => {
+  const handleCreatePost = async (newPost: Post) => {
+    // Optimistic update
     setPosts([newPost, ...posts]);
     setShowPostForm(false);
+
+    // Persist to DB
+    await PostService.createPost(newPost).then(saved => {
+      if (saved) {
+        // Replace optimistic post with real one (with ID)
+        setPosts(prev => [saved, ...prev.filter(p => p !== newPost)]);
+      }
+    });
   };
 
   const renderContent = () => {
     if (selectedPost) {
       return (
-        <PostView 
-          post={selectedPost} 
-          onBack={() => setSelectedPost(null)} 
+        <PostView
+          post={selectedPost}
+          onBack={() => setSelectedPost(null)}
         />
       );
     }
@@ -70,7 +100,7 @@ const App: React.FC = () => {
           <h2 className="text-2xl font-bold serif-font text-gray-800">
             {activeCategory === 'all' ? '熱門討論' : CATEGORIES.find(c => c.id === activeCategory)?.name}
           </h2>
-          <button 
+          <button
             onClick={() => setShowPostForm(true)}
             className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg transition-colors shadow-sm flex items-center gap-2"
           >
@@ -78,13 +108,15 @@ const App: React.FC = () => {
           </button>
         </div>
 
-        {filteredPosts.length > 0 ? (
+        {isLoading ? (
+          <div className="text-center py-20 text-gray-500">載入中...</div>
+        ) : filteredPosts.length > 0 ? (
           <div className="grid grid-cols-1 gap-4">
             {filteredPosts.map(post => (
-              <PostCard 
-                key={post.id} 
-                post={post} 
-                onClick={() => setSelectedPost(post)} 
+              <PostCard
+                key={post.id}
+                post={post}
+                onClick={() => setSelectedPost(post)}
               />
             ))}
           </div>
@@ -99,38 +131,38 @@ const App: React.FC = () => {
 
   return (
     <div className={`min-h-screen flex flex-col ${isDarkMode ? 'dark bg-gray-900 text-gray-100' : 'bg-[#F8F9FA] text-gray-900'}`}>
-      <Header 
-        isDarkMode={isDarkMode} 
+      <Header
+        isDarkMode={isDarkMode}
         toggleDarkMode={() => setIsDarkMode(!isDarkMode)}
         onSearch={setSearchQuery}
         onAIGradingClick={() => {
-            setShowAIGrading(true);
-            setShowCompHub(false);
-            setSelectedPost(null);
+          setShowAIGrading(true);
+          setShowCompHub(false);
+          setSelectedPost(null);
         }}
         onCompHubClick={() => {
-            setShowCompHub(true);
-            setShowAIGrading(false);
-            setSelectedPost(null);
+          setShowCompHub(true);
+          setShowAIGrading(false);
+          setSelectedPost(null);
         }}
         onHomeClick={() => {
-            setActiveCategory('all');
-            setSelectedPost(null);
-            setShowAIGrading(false);
-            setShowCompHub(false);
+          setActiveCategory('all');
+          setSelectedPost(null);
+          setShowAIGrading(false);
+          setShowCompHub(false);
         }}
       />
-      
+
       <div className="flex flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 gap-8">
         <aside className="hidden md:block w-64 flex-shrink-0">
-          <Sidebar 
-            activeCategory={activeCategory} 
+          <Sidebar
+            activeCategory={activeCategory}
             onSelectCategory={(id) => {
               setActiveCategory(id);
               setSelectedPost(null);
               setShowAIGrading(false);
               setShowCompHub(false);
-            }} 
+            }}
           />
         </aside>
 
@@ -140,8 +172,8 @@ const App: React.FC = () => {
       </div>
 
       {showPostForm && (
-        <PostForm 
-          onClose={() => setShowPostForm(false)} 
+        <PostForm
+          onClose={() => setShowPostForm(false)}
           onSubmit={handleCreatePost}
           categories={CATEGORIES}
         />

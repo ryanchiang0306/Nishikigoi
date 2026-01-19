@@ -6,17 +6,29 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "lint": "eslint .",
+    "preview": "vite preview",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
-    "react": "^19.2.3",
     "@google/genai": "^1.37.0",
+    "@supabase/supabase-js": "^2.90.1",
+    "react": "^19.2.3",
     "react-dom": "^19.2.3"
   },
   "devDependencies": {
+    "@eslint/js": "^9.9.0",
     "@types/node": "^22.14.0",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^5.0.0",
+    "eslint": "^9.9.0",
+    "eslint-plugin-react-hooks": "^5.1.0-rc.0",
+    "eslint-plugin-react-refresh": "^0.4.9",
+    "gh-pages": "^6.1.1",
+    "globals": "^15.9.0",
     "typescript": "~5.8.2",
+    "typescript-eslint": "^8.0.1",
     "vite": "^6.2.0"
   }
 }
