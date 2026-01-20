@@ -11,7 +11,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeCategory, onSelectCategory }) =
   return (
     <div className="space-y-6 dark:bg-gray-800">
       <div>
-        <h3 className="text-xs font-semibold text-gray-500 dark:text-white uppercase tracking-wider mb-4 px-3">論壇分類</h3>
+        <h3 className="text-xs font-semibold text-gray-500 dark:text-white uppercase tracking-wider mb-4 px-3 mt-2">論壇分類</h3>
         <nav className="space-y-1">
           <button
             onClick={() => onSelectCategory('all')}
