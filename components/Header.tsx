@@ -30,10 +30,10 @@ const Header: React.FC<HeaderProps> = ({
               <input
                 type="text"
                 placeholder="搜尋文章、品種、管理法..."
-                className="w-full bg-gray-100 dark:bg-gray-700 border-none rounded-full py-2 px-5 text-sm focus:ring-2 focus:ring-indigo-500 transition-all text-gray-900 dark:text-gray-100 placeholder:text-gray-500 dark:placeholder:text-gray-400"
+                className="w-full bg-gray-100 dark:bg-gray-700 border-none rounded-full py-2 px-5 text-sm focus:ring-2 focus:ring-indigo-500 transition-all text-gray-900 dark:text-gray-100 placeholder:text-gray-500 dark:placeholder:text-gray-500"
                 onChange={(e) => onSearch(e.target.value)}
               />
-              <span className="absolute right-4 top-2 text-gray-400 dark:text-gray-500">🔍</span>
+              <span className="absolute right-4 top-2 text-gray-500 dark:text-gray-500">🔍</span>
             </div>
           </div>
 
@@ -63,15 +63,16 @@ const Header: React.FC<HeaderProps> = ({
                     src={user.avatar}
                     alt={user.name}
                     className="w-8 h-8 rounded-full border border-gray-200 dark:border-gray-600 group-hover:border-indigo-300 dark:group-hover:border-indigo-500 transition-colors"
+                    loading="lazy"
                   />
                   <div className="text-left hidden sm:block">
                     <div className="text-xs font-bold text-gray-700 dark:text-gray-200 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">{user.name}</div>
-                    <div className="text-[10px] text-gray-400 dark:text-gray-500">{user.email?.split('@')[0]}</div>
+                    <div className="text-[10px] text-gray-500 dark:text-gray-500">{user.email?.split('@')[0]}</div>
                   </div>
                 </button>
                 <button
                   onClick={signOut}
-                  className="text-xs text-gray-500 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-400 font-medium px-2 py-1"
+                  className="text-xs text-gray-500 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-400 font-medium px-2 py-1"
                 >
                   登出
                 </button>

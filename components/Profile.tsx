@@ -54,12 +54,13 @@ const Profile: React.FC<ProfileProps> = ({ user, onBack, onPostClick, onLike, on
             </div>
 
             {/* Profile Card */}
-            <div className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 flex flex-col items-center text-center">
+            <div className="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 flex flex-col items-center text-center">
                 <div className="w-24 h-24 rounded-full p-1 bg-gradient-to-tr from-indigo-500 to-pink-500 mb-4">
                     <img
                         src={user.avatar}
                         alt={user.name}
                         className="w-full h-full rounded-full border-4 border-white dark:border-gray-800 object-cover bg-white"
+                        loading="lazy"
                     />
                 </div>
                 <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-1">{user.name}</h2>

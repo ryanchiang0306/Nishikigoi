@@ -57,9 +57,15 @@ const AppContent: React.FC = () => {
       }
       setIsLoading(false);
     };
-
     loadPosts();
   }, [user]); // Reload when user changes
+
+  useEffect(() => {
+    const categoryName = CATEGORIES.find(c => c.id === activeCategory)?.name || '首頁';
+    document.title = activeCategory === 'all'
+      ? '錦鯉傳承 | Nishikigoi Heritage'
+      : `${categoryName} - 錦鯉傳承`;
+  }, [activeCategory]);
 
   const filteredPosts = posts.filter(post => {
     const matchesCategory = activeCategory === 'all' || post.category === activeCategory;
@@ -275,7 +281,7 @@ const AppContent: React.FC = () => {
         onProfileClick={handleProfileClick}
       />
 
-      <div className="flex flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 gap-8">
+      <div className="flex flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 gap-8 leading-7">
         <aside className="hidden md:block w-64 flex-shrink-0">
           <Sidebar
             activeCategory={activeCategory}
