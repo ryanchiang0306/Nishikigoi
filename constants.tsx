@@ -48,9 +48,9 @@ export const MOCK_POSTS: Post[] = [
 ];
 
 export const ROLE_COLORS: Record<UserRole, string> = {
-  [UserRole.BEGINNER]: 'bg-slate-200 text-slate-700',
-  [UserRole.MEMBER]: 'bg-blue-100 text-blue-700',
-  [UserRole.SENIOR]: 'bg-amber-100 text-amber-700',
-  [UserRole.PRODUCER]: 'bg-red-100 text-red-700',
-  [UserRole.MODERATOR]: 'bg-indigo-600 text-white'
+  [UserRole.BEGINNER]: 'bg-slate-800 text-slate-300 border border-slate-700',
+  [UserRole.MEMBER]: 'bg-blue-900/40 text-blue-200 border border-blue-800',
+  [UserRole.SENIOR]: 'bg-amber-900/40 text-amber-200 border border-amber-800',
+  [UserRole.PRODUCER]: 'bg-red-900/40 text-red-200 border border-red-800',
+  [UserRole.MODERATOR]: 'bg-indigo-600 text-white shadow-lg shadow-indigo-900/50'
 };
