@@ -25,7 +25,7 @@ const AIGrading: React.FC<AIGradingProps> = ({ onBack }) => {
       try {
         const grading = await simulateAIGrading(base64);
         setResult(grading);
-      } catch (error: unknown) {
+      } catch {
         alert('AI 品評暫時無法使用，請稍後再試。');
       } finally {
         setLoading(false);

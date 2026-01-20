@@ -19,35 +19,28 @@ const Profile: React.FC<ProfileProps> = ({ user, onBack, onPostClick, onLike, on
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {
+        const loadTabContent = async () => {
+            setIsLoading(true);
+            let data: Post[] = [];
+
+            try {
+                if (activeTab === 'posts') {
+                    data = await PostService.getUserPosts(user.id);
+                } else if (activeTab === 'liked') {
+                    data = await PostService.getLikedPosts(user.id);
+                } else if (activeTab === 'bookmarked') {
+                    data = await PostService.getBookmarkedPosts(user.id);
+                }
+            } catch (error) {
+                console.error('Error loading tab data', error);
+            }
+
+            setPosts(data);
+            setIsLoading(false);
+        };
+
         loadTabContent();
     }, [activeTab, user]);
-
-    const handleDelete = (post: Post) => {
-        if (window.confirm('確定要刪除這篇文章嗎？')) {
-            setPosts(posts.filter(p => p.id !== post.id));
-            onDelete(post);
-        }
-    };
-
-    const loadTabContent = async () => {
-        setIsLoading(true);
-        let data: Post[] = [];
-
-        try {
-            if (activeTab === 'posts') {
-                data = await PostService.getUserPosts(user.id);
-            } else if (activeTab === 'liked') {
-                data = await PostService.getLikedPosts(user.id);
-            } else if (activeTab === 'bookmarked') {
-                data = await PostService.getBookmarkedPosts(user.id);
-            }
-        } catch (error) {
-            console.error('Error loading tab data', error);
-        }
-
-        setPosts(data);
-        setIsLoading(false);
-    };
 
     return (
         <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-300">

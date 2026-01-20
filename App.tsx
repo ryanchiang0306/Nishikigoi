@@ -16,6 +16,8 @@ import { AuthProvider, useAuth } from './contexts/AuthContext';
 import AuthModal from './components/AuthModal';
 
 
+
+
 const AppContent: React.FC = () => {
   const { user, openAuthModal, isAuthModalOpen, closeAuthModal } = useAuth();
   const [activeCategory, setActiveCategory] = useState<string>('all');
@@ -42,22 +44,21 @@ const AppContent: React.FC = () => {
   // Fetch posts on load
 
   useEffect(() => {
-    loadPosts();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]); // Reload when user changes
+    const loadPosts = async () => {
+      setIsLoading(true);
+      const data = await PostService.getPosts(user?.id);
+      // Use fallback mock data ONLY if DB is empty or fails (optional, good for demo)
+      if (data.length === 0 && !user) {
+        // Fallback for initial demo experience if user hasn't set up DB yet
+        setPosts(MOCK_POSTS.map(p => ({ ...p, likes: 0 }))); // Mock fallback
+      } else {
+        setPosts(data);
+      }
+      setIsLoading(false);
+    };
 
-  const loadPosts = async () => {
-    setIsLoading(true);
-    const data = await PostService.getPosts(user?.id);
-    // Use fallback mock data ONLY if DB is empty or fails (optional, good for demo)
-    if (data.length === 0 && !user) {
-      // Fallback for initial demo experience if user hasn't set up DB yet
-      setPosts(MOCK_POSTS.map(p => ({ ...p, likes: 0 }))); // Mock fallback
-    } else {
-      setPosts(data);
-    }
-    setIsLoading(false);
-  };
+    loadPosts();
+  }, [user]); // Reload when user changes
 
   const filteredPosts = posts.filter(post => {
     const matchesCategory = activeCategory === 'all' || post.category === activeCategory;
