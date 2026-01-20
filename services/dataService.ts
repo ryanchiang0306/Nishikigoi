@@ -7,7 +7,7 @@ export const PostService = {
      * Checks if current user liked or bookmarked them.
      */
     async getPosts(currentUserId?: string): Promise<(Post & { isLiked: boolean; isBookmarked: boolean })[]> {
-        let query = supabase
+        const query = supabase
             .from('posts')
             .select(`
         *,
@@ -23,7 +23,7 @@ export const PostService = {
             return [];
         }
 
-        return this.mapSupabaseDataToPosts(data as any[], currentUserId);
+        return this.mapSupabaseDataToPosts(data as unknown as SupabasePostResponse[], currentUserId);
     },
 
     /**
@@ -60,7 +60,7 @@ export const PostService = {
             author: {
                 id: userId || 'anon',
                 name: data.author,
-                role: data.role as any,
+                role: data.role as import('../types').UserRole,
                 avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=' + (userId || data.author)
             },
             timestamp: new Date(data.created_at).toLocaleDateString(),
@@ -124,7 +124,7 @@ export const PostService = {
             return [];
         }
 
-        return this.mapSupabaseDataToPosts(data, userId);
+        return this.mapSupabaseDataToPosts(data as unknown as SupabasePostResponse[], userId);
     },
 
     /**
@@ -153,9 +153,9 @@ export const PostService = {
         }
 
         // Extract posts from the nested structure
-        const posts = data.map((item: any) => item.posts).filter(p => p !== null);
+        const posts = data.map((item: any) => item.posts).filter((p: any) => p !== null);
 
-        return this.mapSupabaseDataToPosts(posts, userId);
+        return this.mapSupabaseDataToPosts(posts as unknown as SupabasePostResponse[], userId);
     },
 
     /**
@@ -179,16 +179,16 @@ export const PostService = {
             return [];
         }
 
-        const posts = data.map((item: any) => item.posts).filter(p => p !== null);
+        const posts = data.map((item: any) => item.posts).filter((p: any) => p !== null);
 
-        return this.mapSupabaseDataToPosts(posts, userId);
+        return this.mapSupabaseDataToPosts(posts as unknown as SupabasePostResponse[], userId);
     },
 
     // Helper to DRY up the mapping logic
-    mapSupabaseDataToPosts(data: any[], currentUserId?: string) {
+    mapSupabaseDataToPosts(data: SupabasePostResponse[], currentUserId?: string) {
         return data.map(item => {
-            const isLiked = currentUserId ? item.post_likes?.some((l: any) => l.user_id === currentUserId) : false;
-            const isBookmarked = currentUserId ? item.bookmarks?.some((b: any) => b.user_id === currentUserId) : false;
+            const isLiked = currentUserId ? item.post_likes?.some(l => l.user_id === currentUserId) : false;
+            const isBookmarked = currentUserId ? item.bookmarks?.some(b => b.user_id === currentUserId) : false;
 
             return {
                 id: item.id.toString(),
@@ -198,7 +198,7 @@ export const PostService = {
                 author: {
                     id: item.user_id || 'anon',
                     name: item.author,
-                    role: item.role as any,
+                    role: item.role as import('../types').UserRole,
                     avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=' + (item.user_id || item.author)
                 },
                 timestamp: new Date(item.created_at).toLocaleDateString(),
@@ -216,3 +216,18 @@ export const PostService = {
         if (error) console.error('Error deleting post:', error);
     },
 };
+
+interface SupabasePostResponse {
+    id: number | string;
+    title: string;
+    content: string;
+    category: any; // Ideally this should be a Category union type
+    user_id: string;
+    author: string;
+    role: string;
+    created_at: string;
+    likes: number;
+    tags: string[];
+    post_likes: { user_id: string }[];
+    bookmarks: { user_id: string }[];
+}

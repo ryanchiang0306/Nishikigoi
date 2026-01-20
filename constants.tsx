@@ -1,5 +1,5 @@
 
-import React from 'react';
+
 import { Category, UserRole, PostTag, Post, User } from './types';
 
 export const CATEGORIES: Category[] = [

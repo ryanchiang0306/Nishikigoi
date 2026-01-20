@@ -16,7 +16,7 @@ const CompetitionHub: React.FC<CompetitionHubProps> = ({ onBack }) => {
     try {
       const explanation = await getProfessionalTerms(term);
       setTermExplanation(explanation);
-    } catch (e) {
+    } catch {
       setTermExplanation("無法取得說明。");
     } finally {
       setLoadingTerm(false);

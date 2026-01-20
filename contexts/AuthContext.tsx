@@ -3,17 +3,9 @@ import { supabase } from '../supabaseClient';
 import { Session, User as SupabaseUser } from '@supabase/supabase-js';
 import { User as AppUser, UserRole } from '../types';
 
-interface AuthContextType {
-    session: Session | null;
-    user: AppUser | null;
-    signOut: () => Promise<void>;
-    loading: boolean;
-    openAuthModal: () => void;
-    closeAuthModal: () => void;
-    isAuthModalOpen: boolean;
-}
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
+
+import { AuthContext, AuthContextType } from './AuthContextDefinition';
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [session, setSession] = useState<Session | null>(null);

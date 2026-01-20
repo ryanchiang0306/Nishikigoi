@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Post, PostTag, UserRole, Category } from '../types';
+import { Post, PostTag, Category } from '../types';
 import { MOCK_USERS } from '../constants';
 
 interface PostFormProps {
@@ -29,7 +29,8 @@ const PostForm: React.FC<PostFormProps> = ({ onClose, onSubmit, categories }) =>
       timestamp: new Date().toLocaleString(),
       views: 0,
       comments: [],
-      images: []
+      images: [],
+      likes: 0
     };
 
     onSubmit(newPost);
