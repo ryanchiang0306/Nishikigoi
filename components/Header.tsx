@@ -1,8 +1,6 @@
 import { useAuth } from '../contexts/AuthContextDefinition';
 
 interface HeaderProps {
-  isDarkMode: boolean;
-  toggleDarkMode: () => void;
   onSearch: (q: string) => void;
   onAIGradingClick: () => void;
   onCompHubClick: () => void;
@@ -11,7 +9,7 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({
-  isDarkMode, toggleDarkMode, onSearch, onAIGradingClick, onCompHubClick, onHomeClick, onProfileClick
+  onSearch, onAIGradingClick, onCompHubClick, onHomeClick, onProfileClick
 }) => {
   const { user, openAuthModal, signOut } = useAuth();
 
@@ -52,13 +50,8 @@ const Header: React.FC<HeaderProps> = ({
             >
               🏆 比賽專區
             </button>
-            <button
-              onClick={toggleDarkMode}
-              className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-              title="切換深色/淺色模式"
-            >
-              {isDarkMode ? '🌙' : '☀️'}
-            </button>
+
+
 
             {user ? (
               <div className="flex items-center gap-3">

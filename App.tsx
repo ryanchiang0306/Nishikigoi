@@ -27,7 +27,7 @@ const AppContent: React.FC = () => {
   const [showCompHub, setShowCompHub] = useState(false);
   const [showPostForm, setShowPostForm] = useState(false);
   const [showProfile, setShowProfile] = useState(false); // Added showProfile state
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDarkMode] = useState(true);
   // Apply dark mode class to html element
   useEffect(() => {
     if (isDarkMode) {
@@ -252,8 +252,6 @@ const AppContent: React.FC = () => {
   return (
     <div className={`min-h-screen flex flex-col ${isDarkMode ? 'dark bg-gray-900 text-gray-100' : 'bg-[#F8F9FA] text-gray-900'}`}>
       <Header
-        isDarkMode={isDarkMode}
-        toggleDarkMode={() => setIsDarkMode(!isDarkMode)}
         onSearch={setSearchQuery}
         onAIGradingClick={() => {
           setShowAIGrading(true);
