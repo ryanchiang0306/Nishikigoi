@@ -40,9 +40,10 @@ const AppContent: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   // Fetch posts on load
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+
   useEffect(() => {
     loadPosts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]); // Reload when user changes
 
   const loadPosts = async () => {
@@ -226,7 +227,7 @@ const AppContent: React.FC = () => {
                 onClick={() => setSelectedPost(post)}
                 onLike={(e) => handleLike(post, e)}
                 onBookmark={(e) => handleBookmark(post, e)}
-                onDelete={(e) => {
+                onDelete={() => {
                   if (window.confirm('確定要刪除嗎？')) {
                     handleDeletePost(post);
                   }

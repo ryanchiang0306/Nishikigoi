@@ -17,6 +17,7 @@ const Profile: React.FC<ProfileProps> = ({ user, onBack, onPostClick, onLike, on
     const [posts, setPosts] = useState<Post[]>([]);
     const [isLoading, setIsLoading] = useState(true);
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {
         loadTabContent();
     }, [activeTab, user]);
