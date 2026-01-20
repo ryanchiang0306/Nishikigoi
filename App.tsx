@@ -12,7 +12,8 @@ import PostForm from './components/PostForm';
 import Profile from './components/Profile'; // Added Profile import
 
 import { PostService } from './services/dataService';
-import { AuthProvider, useAuth } from './contexts/AuthContext';
+import { AuthProvider } from './contexts/AuthContext';
+import { useAuth } from './contexts/AuthContextDefinition';
 import AuthModal from './components/AuthModal';
 
 

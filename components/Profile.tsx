@@ -17,7 +17,6 @@ const Profile: React.FC<ProfileProps> = ({ user, onBack, onPostClick, onLike, on
     const [posts, setPosts] = useState<Post[]>([]);
     const [isLoading, setIsLoading] = useState(true);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {
         const loadTabContent = async () => {
             setIsLoading(true);
@@ -129,7 +128,7 @@ const Profile: React.FC<ProfileProps> = ({ user, onBack, onPostClick, onLike, on
                                 onClick={() => onPostClick(post)}
                                 onLike={(e) => onLike(post, e)}
                                 onBookmark={(e) => onBookmark(post, e)}
-                                onDelete={(e) => {
+                                onDelete={() => {
                                     if (window.confirm('確定要刪除嗎？')) {
                                         setPosts(posts.filter(p => p.id !== post.id));
                                         onDelete(post);

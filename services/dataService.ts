@@ -153,7 +153,7 @@ export const PostService = {
         }
 
         // Extract posts from the nested structure
-        const posts = data.map((item: any) => item.posts).filter((p: any) => p !== null);
+        const posts = data.map((item: { posts: SupabasePostResponse | SupabasePostResponse[] | null }) => Array.isArray(item.posts) ? item.posts[0] : item.posts).filter((p): p is SupabasePostResponse => p !== null);
 
         return this.mapSupabaseDataToPosts(posts as unknown as SupabasePostResponse[], userId);
     },
@@ -179,7 +179,7 @@ export const PostService = {
             return [];
         }
 
-        const posts = data.map((item: any) => item.posts).filter((p: any) => p !== null);
+        const posts = data.map((item: { posts: SupabasePostResponse | SupabasePostResponse[] | null }) => Array.isArray(item.posts) ? item.posts[0] : item.posts).filter((p): p is SupabasePostResponse => p !== null);
 
         return this.mapSupabaseDataToPosts(posts as unknown as SupabasePostResponse[], userId);
     },
@@ -221,7 +221,7 @@ interface SupabasePostResponse {
     id: number | string;
     title: string;
     content: string;
-    category: any; // Ideally this should be a Category union type
+    category: string;
     user_id: string;
     author: string;
     role: string;
