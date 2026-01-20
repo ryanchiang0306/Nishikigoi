@@ -7,7 +7,7 @@ interface CompetitionHubProps {
 }
 
 const CompetitionHub: React.FC<CompetitionHubProps> = ({ onBack }) => {
-  const [termQuery, setTermQuery] = useState('');
+
   const [termExplanation, setTermExplanation] = useState<string | null>(null);
   const [loadingTerm, setLoadingTerm] = useState(false);
 
@@ -39,16 +39,16 @@ const CompetitionHub: React.FC<CompetitionHubProps> = ({ onBack }) => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2 space-y-4">
             <div className="bg-indigo-900 rounded-xl p-6 text-white shadow-xl relative overflow-hidden">
-                <div className="relative z-10">
-                    <span className="bg-red-500 text-[10px] font-bold px-2 py-0.5 rounded uppercase mb-2 inline-block">LIVE 現正進行中</span>
-                    <h3 className="text-2xl font-bold serif-font mb-2">2024 全日本總合錦鯉品評會</h3>
-                    <p className="text-indigo-200 text-sm mb-4">目前的賽事階段：全體大賞評選中</p>
-                    <div className="flex gap-4 text-xs font-medium text-indigo-300">
-                        <span>📍 所在地：東京</span>
-                        <span>👥 線上討論：1,248 人</span>
-                    </div>
+              <div className="relative z-10">
+                <span className="bg-red-500 text-[10px] font-bold px-2 py-0.5 rounded uppercase mb-2 inline-block">LIVE 現正進行中</span>
+                <h3 className="text-2xl font-bold serif-font mb-2">2024 全日本總合錦鯉品評會</h3>
+                <p className="text-indigo-200 text-sm mb-4">目前的賽事階段：全體大賞評選中</p>
+                <div className="flex gap-4 text-xs font-medium text-indigo-300">
+                  <span>📍 所在地：東京</span>
+                  <span>👥 線上討論：1,248 人</span>
                 </div>
-                <div className="absolute -right-10 -bottom-10 w-48 h-48 bg-indigo-500/20 rounded-full blur-3xl"></div>
+              </div>
+              <div className="absolute -right-10 -bottom-10 w-48 h-48 bg-indigo-500/20 rounded-full blur-3xl"></div>
             </div>
 
             <div className="bg-gray-50 rounded-xl p-6 border border-gray-100 min-h-[400px]">
@@ -68,9 +68,9 @@ const CompetitionHub: React.FC<CompetitionHubProps> = ({ onBack }) => {
                 </div>
               </div>
               <div className="mt-auto border-t border-gray-200 pt-4">
-                <input 
-                  type="text" 
-                  className="w-full bg-white border border-gray-200 rounded-lg py-2 px-4 text-sm focus:ring-2 focus:ring-indigo-500" 
+                <input
+                  type="text"
+                  className="w-full bg-white border border-gray-200 rounded-lg py-2 px-4 text-sm focus:ring-2 focus:ring-indigo-500"
                   placeholder="輸入訊息加入討論..."
                 />
               </div>
@@ -83,7 +83,7 @@ const CompetitionHub: React.FC<CompetitionHubProps> = ({ onBack }) => {
               <p className="text-xs text-gray-500 mb-4">不懂賽評在說什麼？點擊下方用語立即解釋：</p>
               <div className="flex flex-wrap gap-2 mb-4">
                 {TERMS.map(t => (
-                  <button 
+                  <button
                     key={t}
                     onClick={() => handleTermHelp(t)}
                     className="bg-gray-100 hover:bg-indigo-50 hover:text-indigo-600 text-gray-600 px-3 py-1 rounded-full text-xs font-medium transition-all"
@@ -92,7 +92,7 @@ const CompetitionHub: React.FC<CompetitionHubProps> = ({ onBack }) => {
                   </button>
                 ))}
               </div>
-              
+
               {loadingTerm && <div className="text-xs text-gray-400 italic">正在獲取 AI 解釋...</div>}
               {termExplanation && !loadingTerm && (
                 <div className="bg-indigo-50 p-4 rounded-lg border border-indigo-100 animate-in fade-in duration-300">

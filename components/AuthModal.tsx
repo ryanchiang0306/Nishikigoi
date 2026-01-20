@@ -37,8 +37,8 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
                 alert('註冊成功！請檢查您的信箱進行驗證，或直接登入 (如果已關閉驗證)。');
                 setIsLogin(true);
             }
-        } catch (err: any) {
-            setError(err.message);
+        } catch (error: unknown) {
+            setError(error instanceof Error ? error.message : String(error));
         } finally {
             setLoading(false);
         }

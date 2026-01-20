@@ -25,7 +25,7 @@ const AIGrading: React.FC<AIGradingProps> = ({ onBack }) => {
       try {
         const grading = await simulateAIGrading(base64);
         setResult(grading);
-      } catch (err) {
+      } catch (error: unknown) {
         alert('AI 品評暫時無法使用，請稍後再試。');
       } finally {
         setLoading(false);
@@ -55,7 +55,7 @@ const AIGrading: React.FC<AIGradingProps> = ({ onBack }) => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div className="space-y-4">
-          <div 
+          <div
             onClick={() => fileInputRef.current?.click()}
             className="aspect-[3/4] rounded-xl border-2 border-dashed border-gray-300 bg-gray-50 flex flex-col items-center justify-center cursor-pointer hover:border-indigo-400 transition-all group relative overflow-hidden"
           >
@@ -73,7 +73,7 @@ const AIGrading: React.FC<AIGradingProps> = ({ onBack }) => {
             )}
           </div>
           <input ref={fileInputRef} type="file" className="hidden" accept="image/*" onChange={handleFileChange} />
-          
+
           <div className="bg-amber-50 p-4 rounded-lg border border-amber-200">
             <h4 className="text-xs font-bold text-amber-800 uppercase tracking-wider mb-2">⚠️ 注意事項</h4>
             <p className="text-xs text-amber-700 leading-relaxed">
@@ -103,7 +103,7 @@ const AIGrading: React.FC<AIGradingProps> = ({ onBack }) => {
                   「{result.summary}」
                 </p>
               </div>
-              <button 
+              <button
                 onClick={() => fileInputRef.current?.click()}
                 className="w-full mt-6 bg-white border border-gray-200 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50 transition-all"
               >

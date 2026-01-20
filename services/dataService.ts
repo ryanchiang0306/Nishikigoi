@@ -211,4 +211,8 @@ export const PostService = {
             };
         });
     }
+    async deletePost(postId: string): Promise<void> {
+        const { error } = await supabase.from('posts').delete().eq('id', postId);
+        if (error) console.error('Error deleting post:', error);
+    },
 };

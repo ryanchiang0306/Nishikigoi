@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
-import { CATEGORIES, MOCK_POSTS, ROLE_COLORS } from './constants';
-import { Post, Category, UserRole, PostTag } from './types';
+import { CATEGORIES, MOCK_POSTS } from './constants';
+import { Post } from './types';
 import Sidebar from './components/Sidebar';
 import Header from './components/Header';
 import PostCard from './components/PostCard';
@@ -12,12 +12,12 @@ import PostForm from './components/PostForm';
 import Profile from './components/Profile'; // Added Profile import
 
 import { PostService } from './services/dataService';
-import AuthContext, { AuthProvider, useAuth } from './contexts/AuthContext';
+import { AuthProvider, useAuth } from './contexts/AuthContext';
 import AuthModal from './components/AuthModal';
 
 
 const AppContent: React.FC = () => {
-  const { user, openAuthModal, isAuthModalOpen, closeAuthModal, signOut } = useAuth(); // Added signOut
+  const { user, openAuthModal, isAuthModalOpen, closeAuthModal } = useAuth();
   const [activeCategory, setActiveCategory] = useState<string>('all');
   const [selectedPost, setSelectedPost] = useState<Post | null>(null);
   const [showAIGrading, setShowAIGrading] = useState(false);
@@ -40,9 +40,10 @@ const AppContent: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   // Fetch posts on load
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     loadPosts();
-  }, [user]); // Reload when user changes to update likes/bookmarks logic if needed
+  }, [user]); // Reload when user changes
 
   const loadPosts = async () => {
     setIsLoading(true);
