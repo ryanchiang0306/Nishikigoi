@@ -31,6 +31,16 @@ const PostCard: React.FC<PostCardProps> = ({
       onClick={onClick}
       className="bg-white dark:bg-gray-800 p-5 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md hover:border-indigo-200 dark:hover:border-indigo-800 transition-all cursor-pointer group relative"
     >
+      <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center gap-2">
+          <img src={post.author.avatar} alt={post.author.name} className="w-6 h-6 rounded-full border border-gray-200 dark:border-gray-600" />
+          <span className="text-sm font-medium text-gray-700 dark:text-white">{post.author.name}</span>
+          <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold ${ROLE_COLORS[post.author.role]}`}>
+            {post.author.role}
+          </span>
+        </div>
+      </div>
+
       <div className="flex items-start gap-4">
         {post.images && post.images.length > 0 && (
           <div className="w-24 h-24 flex-shrink-0 rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-700 hidden sm:block">
@@ -38,6 +48,7 @@ const PostCard: React.FC<PostCardProps> = ({
           </div>
         )}
         <div className="flex-1">
+
           <div className="flex items-center gap-2 mb-2">
             <span className={`text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wide bg-indigo-50 dark:bg-indigo-900/50 text-indigo-600 dark:text-indigo-400 border border-indigo-100 dark:border-indigo-800`}>
               {post.tag}
@@ -53,13 +64,7 @@ const PostCard: React.FC<PostCardProps> = ({
           </p>
 
           <div className="flex items-center justify-between mt-auto">
-            <div className="flex items-center gap-2">
-              <img src={post.author.avatar} alt={post.author.name} className="w-5 h-5 rounded-full border border-gray-200 dark:border-gray-600" />
-              <span className="text-xs font-medium text-gray-700 dark:text-white">{post.author.name}</span>
-              <span className={`text-[9px] px-1.5 py-0.5 rounded-full font-bold ${ROLE_COLORS[post.author.role]}`}>
-                {post.author.role}
-              </span>
-            </div>
+
             <div className="flex items-center gap-4 text-xs text-gray-400 dark:text-white">
               <div className="flex items-center gap-4">
                 <button

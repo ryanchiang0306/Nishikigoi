@@ -304,7 +304,7 @@ const AppContent: React.FC = () => {
       <AuthModal isOpen={isAuthModalOpen} onClose={closeAuthModal} />
 
       {/* Footer */}
-      <footer className="border-t border-gray-200 mt-12 py-8 text-center text-sm text-gray-500">
+      <footer className="mt-12 py-8 text-center text-sm text-gray-500">
         <p>© 2024 錦鯉傳承 - 專注於品質與品位的學術交流平台</p>
         <p className="mt-2 text-xs">尊重新手，專業交流，理性辯證</p>
       </footer>
